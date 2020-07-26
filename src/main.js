@@ -3,16 +3,15 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import Vant from 'vant'
-import 'vant/lib/index.css'
-Vue.use(Vant)
+import Vant from "vant";
+import "vant/lib/index.css";
+Vue.use(Vant);
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axios)
+import axios from "axios";
+import VueAxios from "vue-axios";
+Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
-
 
 new Vue({
   router,

@@ -1,15 +1,11 @@
 <template>
-    <div>
-        主页        
-    </div>
+  <div>
+    主页暂无内容，下次更新添加外文新闻等内容。
+  </div>
 </template>
 
 <script>
-export default {
-    
-}
+export default {};
 </script>
 
-<style lang="scss">
-    
-</style>
+<style lang="scss" scoped></style>
