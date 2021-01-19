@@ -59,6 +59,11 @@ export default {
         }
       });
   },
+  mounted() {
+    if (!this.$parent.show) {
+      this.$parent.showTabbar();
+    }
+  },
   methods: {
     formatYourAnswer(answer, correct) {
       answer = answer.trim();

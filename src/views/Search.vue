@@ -9,6 +9,7 @@
           v-for="(word, index) in hots"
           :key="index"
           :style="{ color: getRandomRgb() }"
+          @click="searchWord(word)"
         >
           {{ word }}
         </li>
@@ -52,7 +53,7 @@ export default {
   data() {
     return {
       key: "",
-      hots: ["happy", "fun", "fantasy", "ok", "beautiful", "yep"],
+      hots: [],
       search: []
     };
   },
@@ -68,6 +69,14 @@ export default {
       }
     }
   },
+  created() {
+    this.flushHotWords();
+  },
+  mounted() {
+    if (!this.$parent.show) {
+      this.$parent.showTabbar();
+    }
+  },
   methods: {
     //获取随机颜色
     getRandomRgb() {
@@ -75,6 +84,29 @@ export default {
       var g = Math.floor(Math.random() * 256);
       var b = Math.floor(Math.random() * 256);
       return "rgb(" + r + "," + g + "," + b + ")";
+    },
+    // 刷新热词榜
+    flushHotWords() {
+      this.axios.get("/api/word/hot/10").then(res => {
+        var data = res.data;
+        if (data.code == 200) {
+          this.hots = data.data;
+        }
+      });
+    },
+    searchWord(word) {
+      this.axios.get("/api/word/search/" + word + "?num=" + 10).then(res => {
+        var data = res.data;
+        if (data.code == 200) {
+          if (data.data.length == 0) {
+            this.$router.push("/translate/" + word);
+          } else {
+            this.$router.push("/search/" + word);
+          }
+        } else {
+          this.$router.push("/translate/" + word);
+        }
+      });
     }
   }
 };

@@ -27,6 +27,11 @@ export default {
       }
     });
   },
+  mounted() {
+    if (!this.$parent.show) {
+      this.$parent.showTabbar();
+    }
+  },
   methods: {
     audio() {
       let audio = new Audio();

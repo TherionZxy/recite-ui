@@ -84,12 +84,15 @@ export default {
     };
   },
   created() {
+    this.$parent.hiddenTabbar();
     this.axios
       .get(
         "/api/word/search/letters/" +
           this.$route.query.letters +
           "?num=" +
-          this.$route.query.num
+          this.$route.query.num +
+          "&type=" +
+          this.$route.query.type
       )
       .then(res => {
         var data = res.data;
@@ -109,6 +112,7 @@ export default {
             message: "您选择的字母尚未录入单词，请选择其他字母。"
           });
           this.$router.go(-1);
+          return;
         }
 
         // 一进入题目页面，就播放第一个单词的中文音频
@@ -117,11 +121,11 @@ export default {
   },
   methods: {
     audio(word) {
-      let audio = new Audio();
-      audio.src =
-        "http://tts.baidu.com/text2audio?cuid=baiduid&lan=zh&ctp=1&pdt=311&tex=" +
-        word;
-      audio.play();
+      this.axios.get("/api/word/audio/4/" + word).then(res => {
+        let audio = new Audio();
+        audio.src = res.data
+        audio.play()
+      })
     },
     onChange(index) {
       this.current = index;
@@ -216,8 +220,6 @@ export default {
 
       .problem-content {
         padding-top: 100px;
-      }
-      .answer-bar {
       }
       .submit-btn {
         float: left;

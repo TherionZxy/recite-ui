@@ -5,7 +5,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    if (!this.$parent.show) {
+      this.$parent.showTabbar();
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

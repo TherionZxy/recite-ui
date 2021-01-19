@@ -56,6 +56,11 @@ export default {
         }
       });
   },
+  mounted() {
+    if (!this.$parent.show) {
+      this.$parent.showTabbar();
+    }
+  },
   methods: {
     toDetailLog(logId) {
       this.$router.push("/log/" + logId);
